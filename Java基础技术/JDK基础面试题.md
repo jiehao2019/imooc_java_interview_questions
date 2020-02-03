@@ -1,4 +1,4 @@
-# 4、JDK基础面试题
+# JDK基础面试题
 
 #### 问：String是最基本的数据类型吗?
 **参考答案：**<br />　　不是，Java基本数据类型只有8种，byte、int、char、long、float、double、boolean和short。					
