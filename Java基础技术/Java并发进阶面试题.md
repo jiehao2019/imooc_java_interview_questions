@@ -12,11 +12,11 @@ synchronized关键字解决的是多个线程之间访问资源的同步性，sy
 
 **参考答案：**
 
-**1、修饰实例方法:**作用于当前对象实例加锁，进入同步代码前要获得当前对象实例的锁
+**1、修饰实例方法:** 作用于当前对象实例加锁，进入同步代码前要获得当前对象实例的锁
 
-**2、修饰静态方法:**:也就是给当前类加锁，会作用于类的所有对象实例，因为静态成员不属于任何一个实例对象，是类成员（ static 表明这是该类的一个静态资源，不管new了多少个对象，只有一份）。所以如果一个线程A调用一个实例对象的非静态 synchronized 方法，而线程B需要调用这个实例对象所属类的静态 synchronized 方法，是允许的，不会发生互斥现象，**因为访问静态 synchronized 方法占用的锁是当前类的锁，而访问非静态 synchronized 方法占用的锁是当前实例对象锁**。
+**2、修饰静态方法:** :也就是给当前类加锁，会作用于类的所有对象实例，因为静态成员不属于任何一个实例对象，是类成员（ static 表明这是该类的一个静态资源，不管new了多少个对象，只有一份）。所以如果一个线程A调用一个实例对象的非静态 synchronized 方法，而线程B需要调用这个实例对象所属类的静态 synchronized 方法，是允许的，不会发生互斥现象，**因为访问静态 synchronized 方法占用的锁是当前类的锁，而访问非静态 synchronized 方法占用的锁是当前实例对象锁**。
 
-**3、修饰代码块:**指定加锁对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁。
+**3、修饰代码块:** 指定加锁对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁。
 
 synchronized 关键字加到 static 静态方法和 synchronized(class)代码块上都是是给 Class 类上锁。synchronized 关键字加到静态方法上是给对象实例上锁。尽量不要使用 synchronized(String a) 因为JVM中，字符串常量池具有缓存功能！
 
@@ -28,9 +28,9 @@ synchronized 关键字加到 static 静态方法和 synchronized(class)代码块
 
 synchronized 关键字底层原理属于 JVM 层面。
 
-**1、synchronized 同步语句块的情况。**synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。 当执行 monitorenter 指令时，线程试图获取锁也就是获取 monitor(monitor对象存在于每个Java对象的对象头中，synchronized 锁便是通过这种方式获取锁的，也是为什么Java中任意对象可以作为锁的原因) 的持有权。当计数器为0则可以成功获取，获取后将锁计数器设为1也就是加1。相应的在执行 monitorexit 指令后，将锁计数器设为0，表明锁被释放。如果获取对象锁失败，那当前线程就要阻塞等待，直到锁被另外一个线程释放为止。
+**1、synchronized 同步语句块的情况。** synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。 当执行 monitorenter 指令时，线程试图获取锁也就是获取 monitor(monitor对象存在于每个Java对象的对象头中，synchronized 锁便是通过这种方式获取锁的，也是为什么Java中任意对象可以作为锁的原因) 的持有权。当计数器为0则可以成功获取，获取后将锁计数器设为1也就是加1。相应的在执行 monitorexit 指令后，将锁计数器设为0，表明锁被释放。如果获取对象锁失败，那当前线程就要阻塞等待，直到锁被另外一个线程释放为止。
 
-**2、synchronized 修饰方法的的情况。**synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法，JVM 通过该 ACC_SYNCHRONIZED 访问标志来辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
+**2、synchronized 修饰方法的的情况。** synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法，JVM 通过该 ACC_SYNCHRONIZED 访问标志来辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
 
 
 
@@ -135,7 +135,7 @@ CAS的原理是拿期望的值和原本的一个值作比较，如果相同则�
 
  备注：JUC 包中的四种原子类。
 
-**1、基本类型，**使用原子的方式更新基本类型
+**1、基本类型，** 使用原子的方式更新基本类型
 
 ​     （1）、AtomicInteger：整形原子类；
 
@@ -143,7 +143,7 @@ CAS的原理是拿期望的值和原本的一个值作比较，如果相同则�
 
 ​     （3）、AtomicBoolean：布尔型原子类
 
-**2、数组类型，**使用原子的方式更新数组里的某个元素
+**2、数组类型，** 使用原子的方式更新数组里的某个元素
 
 （1）、AtomicIntegerArray：整形数组原子类
 
@@ -151,7 +151,7 @@ CAS的原理是拿期望的值和原本的一个值作比较，如果相同则�
 
 （3）、AtomicReferenceArray：引用类型数组原子类
 
-**3、引用类型**
+**3、引用类型** 
 
 （1）、AtomicReference：引用类型原子类
 
@@ -159,7 +159,7 @@ CAS的原理是拿期望的值和原本的一个值作比较，如果相同则�
 
 （3）、AtomicMarkableReference ：原子更新带有标记位的引用类型
 
-**4、对象的属性修改类型**
+**4、对象的属性修改类型** 
 
 （1）、AtomicIntegerFieldUpdater：原子更新整形字段的更新器
 
