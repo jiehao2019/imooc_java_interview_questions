@@ -22,7 +22,7 @@
 
 **（8）、容器：** Spring包含并管理应用对象的配置和生命周期，在这个意义上它是一种容器，你可以配置你的每个bean如何被创建——基于一个可配置原型（prototype），你的bean可以创建一个单独的实例或者每次需要时都生成一个新的实例——以及它们是如何相互关联的。然而，Spring不应该被混同于传统的重量级的EJB容器，它们经常是庞大与笨重的，难以使用。
 
-**（9）、****框架：**Spring可以将简单的组件配置、组合成为复杂的应用。在Spring中，应用对象被声明式地组合，典型地是在一个XML文件里。Spring也提供了很多基础功能（事务管理、持久化框架集成等等），将应用逻辑的开发留给了你。
+**（9）、框架：**Spring可以将简单的组件配置、组合成为复杂的应用。在Spring中，应用对象被声明式地组合，典型地是在一个XML文件里。Spring也提供了很多基础功能（事务管理、持久化框架集成等等），将应用逻辑的开发留给了你。
 
 所有Spring的这些特征使你能够编写更干净、更可管理、并且更易于测试的代码。它们也为Spring中的各种模块提供了基础支持。
 
@@ -138,13 +138,13 @@
 
 （5）autodetect：如果有默认的构造器，则通过constructor的方式进行自动装配，否则使用byType的方式进行自动装配。
 
-> **说明：**自动装配没有自定义装配方式那么精确，而且不能自动装配简单属性（基本类型、字符串等），在使用时应注意。
+> **说明：** 自动装配没有自定义装配方式那么精确，而且不能自动装配简单属性（基本类型、字符串等），在使用时应注意。
 
 
 
 ## 问：**Spring中如何使用注解来配置Bean？有哪些相关的注解？**
 
-**参考答案：**首先需要在Spring配置文件中增加如下配置：
+**参考答案：** 首先需要在Spring配置文件中增加如下配置：
 
 ```xml
 <context:component-scan base-package="org.example"/>
@@ -314,7 +314,7 @@ TransactionDefinition 接口中定义了五个表示隔离级别的常量：
 
 
 
-## 问： BeanFactory 和 ApplicationContext 有什么区别？** **
+## 问： BeanFactory 和 ApplicationContext 有什么区别？
 
 **参考答案：**
 
@@ -322,23 +322,17 @@ TransactionDefinition 接口中定义了五个表示隔离级别的常量：
 
 （1）BeanFactory：是Spring里面最底层的接口，包含了各种Bean的定义，读取bean配置文档，管理bean的加载、实例化，控制bean的生命周期，维护bean之间的依赖关系。ApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能：
 
-​		①继承MessageSource，因此支持国际化。
-
-​		②统一的资源文件访问方式。
-
-​		③提供在监听器中注册bean的事件。
-
-​		④同时加载多个配置文件。
-
-​		⑤载入多个（有继承关系）上下文 ，使得每一个上下文都专注于一个特定的层次，比如应用的web层。
+   ①继承MessageSource，因此支持国际化。
+   ②统一的资源文件访问方式。
+   ③提供在监听器中注册bean的事件。
+   ④同时加载多个配置文件。
+   ⑤载入多个（有继承关系）上下文 ，使得每一个上下文都专注于一个特定的层次，比如应用的web层。
 
 （2）创建Bean的时机不一样：
 
-​		①BeanFactroy采用的是延迟加载形式来注入Bean的，即只有在使用到某个Bean时(调用getBean())，才对该Bean进行加载实例化。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。
-
-  		 ②ApplicationContext，它是在容器启动时，一次性创建了所有的Bean。这样，在容器启动时，我们就可以发现Spring中存在的配置错误，这样有利于检查所依赖属性是否注入。 ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。
-
-  		 ③相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。
+   ①BeanFactroy采用的是延迟加载形式来注入Bean的，即只有在使用到某个Bean时(调用getBean())，才对该Bean进行加载实例化。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。
+   ②ApplicationContext，它是在容器启动时，一次性创建了所有的Bean。这样，在容器启动时，我们就可以发现Spring中存在的配置错误，这样有利于检查所依赖属性是否注入。 ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。
+   ③相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。
 
 （3）BeanFactory通常以编程的方式被创建，ApplicationContext还能以声明的方式创建，如使用ContextLoader。
 
@@ -346,7 +340,7 @@ TransactionDefinition 接口中定义了五个表示隔离级别的常量：
 
 
 
-## 问：**你如何理解AOP中的连接点（Joinpoint）、切入点（Pointcut）、增强（Advice）、引介（Introduction）、织入（Weaving）、切面（Aspect）、目标对象（Target）、代理对象（Proxy）这些概念？
+## 问：你如何理解AOP中的连接点（Joinpoint）、切入点（Pointcut）、增强（Advice）、引介（Introduction）、织入（Weaving）、切面（Aspect）、目标对象（Target）、代理对象（Proxy）这些概念？
 
 **参考答案：**
 
@@ -390,7 +384,7 @@ TransactionDefinition 接口中定义了五个表示隔离级别的常量：
 
 **参考答案：**
 
-​		**默认是单例。**主要原因是为了提高程序的性能和以后程序的维护只针对业务的维护就行（也不需要多例，因为一般不会在控制器中定义成员变量，如果非要定义一个非静态成员变量时候，则通过注解@Scope(“prototype”)，将其设置为多例模式）
+​		**默认是单例。** 主要原因是为了提高程序的性能和以后程序的维护只针对业务的维护就行（也不需要多例，因为一般不会在控制器中定义成员变量，如果非要定义一个非静态成员变量时候，则通过注解@Scope(“prototype”)，将其设置为多例模式）
 
 ​		参考：https://www.javazhiyin.com/59594.html
 
