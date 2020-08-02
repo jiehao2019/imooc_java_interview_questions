@@ -72,11 +72,12 @@ InnoDB是基于索引来完成行锁。
 
 
 
-### 问：请你介绍一下mysql的MVCC机制** ****参考答案：**
+### 问：请你介绍一下mysql的MVCC机制** 
+**参考答案：**
 
 MVCC是一种多版本并发控制机制，是MySQL的InnoDB存储引擎实现隔离级别的一种具体方式，用于实现提交读和可重复读这两种隔离级别。MVCC是通过保存数据在某个时间点的快照来实现该机制，其在每行记录后面保存两个隐藏的列，分别保存这个行的创建版本号和删除版本号，然后Innodb的MVCC使用到的快照存储在Undo日志中，该日志通过回滚指针把一个数据行所有快照连接起来。
 
  可参见：
 
 - [【MySQL（5）| 五分钟搞清楚 MVCC 机制】](https://juejin.im/post/5c68a4056fb9a049e063e0ab)
-- [ 面试官：谈谈你对Mysql的MVCC的理解?](
+- [ 面试官：谈谈你对Mysql的MVCC的理解?](https://blog.csdn.net/belalds/article/details/98759840)
